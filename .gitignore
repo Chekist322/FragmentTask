@@ -3,7 +3,7 @@
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
-/.idea/check-style-idea.xml
+/.idea/checkstyle-idea.xml
 .DS_Store
 /build
 /captures
