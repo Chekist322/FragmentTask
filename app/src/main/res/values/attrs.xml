@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomView">
+        <attr name="firstButtonDrawable" format="reference"/>
+        <attr name="secondButtonDrawable" format="reference"/>
+        <attr name="thirdButtonDrawable" format="reference"/>
+        <attr name="orientationPortrait" format="boolean"/>
+        <attr name="mainColor" format="color"/>
+        <attr name="backgroundShape" format="reference"/>
+    </declare-styleable>
+</resources>

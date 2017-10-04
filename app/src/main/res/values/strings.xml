@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name" translatable="false">FragmentTask</string>
+    <string name="name">Name</string>
+    <string name="breed">Breed</string>
+    <string name="age">Age</string>
+    <string name="registerNewCat">Add</string>
+    <string name="addTitle">Register</string>
+    <string name="nameError">Use only letters for name!</string>
+    <string name="breedError">Use only letters for breed!</string>
+    <string name="ageError">Use only digits for age!</string>
+    <string name="untitled" translatable="false">&lt;Untitled&gt;</string>
+    <string name="catPressed">Kitty №</string>
+</resources>

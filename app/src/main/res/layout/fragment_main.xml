@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:custom="http://schemas.android.com/apk/res-auto"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="?attr/colorButtonNormal"
+                                                 android:elevation="0dp"
+                                                 android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.example.batrakov.fragmenttask.CustomView
+                android:id="@+id/customView"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                custom:backgroundShape="@drawable/rect_color"
+                custom:firstButtonDrawable="@drawable/intent_button_1"
+                custom:mainColor="@color/colorPrimary"
+                custom:orientationPortrait="true"
+                custom:secondButtonDrawable="@drawable/intent_button_2"
+                custom:thirdButtonDrawable="@drawable/add_button">
+
+            </com.example.batrakov.fragmenttask.CustomView>
+
+            <include
+                layout="@layout/header_item"
+                android:visibility="invisible"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rect_colorless"
+                android:elevation="0dp"/>
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
