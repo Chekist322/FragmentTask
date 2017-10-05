@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,13 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable Bundle aSavedInstanceState) {
         super.onCreate(aSavedInstanceState);
         setRetainInstance(true);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListHeader = null;
+        mListAdapter = null;
     }
 
     @Override
@@ -128,7 +136,7 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int aRequestCode, int aResultCode, Intent aData) {
+    public void onActivityResult(int aRequestCode, int aResultCode,@NonNull Intent aData) {
         super.onActivityResult(aRequestCode, aResultCode, aData);
         if (aRequestCode == GRID_ACT) {
             if (aResultCode == Activity.RESULT_OK) {

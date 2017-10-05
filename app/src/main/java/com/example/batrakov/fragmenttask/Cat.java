@@ -1,5 +1,7 @@
 package com.example.batrakov.fragmenttask;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -38,6 +40,7 @@ class Cat implements Serializable {
     public void setName(String aName) {
         this.mName = aName;
     }
+
 
     /**
      * Allow to get cat breed.

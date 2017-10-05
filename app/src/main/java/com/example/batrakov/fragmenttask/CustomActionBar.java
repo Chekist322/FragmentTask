@@ -3,6 +3,8 @@ package com.example.batrakov.fragmenttask;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
@@ -33,7 +35,7 @@ public class CustomActionBar extends LinearLayout {
      * @param aContext context
      * @param aAttrs   attributes from XML
      */
-    public CustomActionBar(Context aContext, AttributeSet aAttrs) {
+    public CustomActionBar(Context aContext,@Nullable AttributeSet aAttrs) {
         super(aContext, aAttrs);
         TypedArray array = aContext.getTheme().obtainStyledAttributes(aAttrs, R.styleable.CustomActionBar, 0, 0);
         try {
@@ -122,7 +124,7 @@ public class CustomActionBar extends LinearLayout {
      * Set first button OnClick listener.
      * @param aOnClickListener listener for the first button
      */
-    public void setFirstButtonOnClickListener(OnClickListener aOnClickListener) {
+    public void setFirstButtonOnClickListener(@NonNull OnClickListener aOnClickListener) {
         mFirstButton.setOnClickListener(aOnClickListener);
     }
 
@@ -130,7 +132,7 @@ public class CustomActionBar extends LinearLayout {
      * Set second button OnClick listener.
      * @param aOnClickListener listener for the second button
      */
-    public void setSecondButtonOnClickListener(OnClickListener aOnClickListener) {
+    public void setSecondButtonOnClickListener(@NonNull OnClickListener aOnClickListener) {
         mSecondButton.setOnClickListener(aOnClickListener);
     }
 
@@ -138,7 +140,7 @@ public class CustomActionBar extends LinearLayout {
      * Set third button OnClick listener.
      * @param aOnClickListener listener for the third button
      */
-    public void setThirdButtonOnClickListener(OnClickListener aOnClickListener) {
+    public void setThirdButtonOnClickListener(@NonNull OnClickListener aOnClickListener) {
         mThirdButton.setOnClickListener(aOnClickListener);
     }
 

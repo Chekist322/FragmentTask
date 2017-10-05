@@ -1,6 +1,7 @@
 package com.example.batrakov.fragmenttask;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 
@@ -17,7 +18,7 @@ public class MainActivity extends FragmentActivity implements RegisterNewCatFrag
     }
 
     @Override
-    public void sendTextFieldsContent(Bundle aBundle) {
+    public void sendTextFieldsContent(@NonNull Bundle aBundle) {
         MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.mainFragment);
         mainFragment.addCat(aBundle);
     }

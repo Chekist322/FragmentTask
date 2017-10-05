@@ -1,6 +1,7 @@
 package com.example.batrakov.fragmenttask;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
@@ -93,6 +94,10 @@ public class RegisterNewCatFragment extends DialogFragment {
     @Override
     public void onDetach() {
         mCallback = null;
+        mName = null;
+        mBreed = null;
+        mAge = null;
+        mView = null;
         super.onDetach();
     }
 
@@ -107,7 +112,7 @@ public class RegisterNewCatFragment extends DialogFragment {
      * @param aName target string
      * @return check result
      */
-    private boolean checkName(String aName) {
+    private boolean checkName(@NonNull String aName) {
         if (!aName.matches("([a-zA-Zа-яА-Я]+\\s?)+")) {
             Snackbar snackbar = Snackbar.make(mView, getResources().getText(R.string.nameError), Snackbar.LENGTH_LONG);
             View view = snackbar.getView();
@@ -124,7 +129,7 @@ public class RegisterNewCatFragment extends DialogFragment {
      * @param aBreed target string
      * @return check result
      */
-    private boolean checkBreed(String aBreed) {
+    private boolean checkBreed(@NonNull String aBreed) {
         if (!aBreed.matches("([a-zA-Zа-яА-Я]+\\s?)+")) {
             Snackbar snackbar = Snackbar.make(mView, getResources().getText(R.string.breedError), Snackbar.LENGTH_LONG);
             View view = snackbar.getView();
@@ -141,7 +146,7 @@ public class RegisterNewCatFragment extends DialogFragment {
      * @param aAge target string
      * @return check result
      */
-    private boolean checkAge(String aAge) {
+    private boolean checkAge(@NonNull String aAge) {
         if (!aAge.matches("\\d+")) {
             Snackbar snackbar = Snackbar.make(mView, getResources().getText(R.string.ageError), Snackbar.LENGTH_LONG);
             View view = snackbar.getView();
@@ -158,9 +163,9 @@ public class RegisterNewCatFragment extends DialogFragment {
      */
     interface SendDataToMainFragment {
         /**
-         * Send text field content to MainFragment.
+         * Send text field content.
          * @param aBundle bundle with data for creating list element.
          */
-        void sendTextFieldsContent(Bundle aBundle);
+        void sendTextFieldsContent(@NonNull Bundle aBundle);
     }
 }
