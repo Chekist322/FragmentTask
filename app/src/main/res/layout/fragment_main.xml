@@ -26,18 +26,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.example.batrakov.fragmenttask.CustomView
+            <com.example.batrakov.fragmenttask.CustomActionBar
                 android:id="@+id/customView"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                custom:buttonsElevation="20"
                 custom:backgroundShape="@drawable/rect_color"
                 custom:firstButtonDrawable="@drawable/intent_button_1"
                 custom:mainColor="@color/colorPrimary"
-                custom:orientationPortrait="true"
+                custom:vertical="true"
                 custom:secondButtonDrawable="@drawable/intent_button_2"
                 custom:thirdButtonDrawable="@drawable/add_button">
 
-            </com.example.batrakov.fragmenttask.CustomView>
+            </com.example.batrakov.fragmenttask.CustomActionBar>
 
             <include
                 layout="@layout/header_item"
@@ -47,8 +48,11 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:animateLayoutChanges="false"
+                android:animationCache="false"
                 android:background="@drawable/rect_colorless"
-                android:elevation="0dp"/>
+                android:elevation="0dp"
+                android:layoutAnimation="@anim/layout_animation_fall_down"/>
 
         </LinearLayout>
     </FrameLayout>

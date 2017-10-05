@@ -16,8 +16,8 @@
             android:layout_weight="5"/>
 
         <fragment
-            android:id="@+id/addFragment"
-            android:name="com.example.batrakov.fragmenttask.AddFragment"
+            android:id="@+id/registerNewCatFragment"
+            android:name="com.example.batrakov.fragmenttask.RegisterNewCatFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="10"/>

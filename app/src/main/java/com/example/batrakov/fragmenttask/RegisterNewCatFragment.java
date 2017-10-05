@@ -1,13 +1,9 @@
 package com.example.batrakov.fragmenttask;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,49 +15,29 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- *
+ * Fragment that allows to register new cat
+ * and send it to MainFragment.
  * Created by batrakov on 04.10.17.
  */
-
-public class AddFragment extends DialogFragment {
-
-    @Override
-    public void onCreate(@Nullable Bundle aSavedInstanceState) {
-        super.onCreate(aSavedInstanceState);
-        setRetainInstance(true);
-    }
+public class RegisterNewCatFragment extends DialogFragment {
 
     /**
      * Intent key for name.
      */
     public static final String NAME_KEY = "name key";
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        this.dismissAllowingStateLoss();
-    }
-
     /**
      * Intent key for breed.
      */
     public static final String BREED_KEY = "breed key";
-
     /**
      * Intent key for age.
      */
     public static final String AGE_KEY = "age key";
-
+    private SendDataToMainFragment mCallback;
     private EditText mName;
     private EditText mBreed;
     private EditText mAge;
     private View mView;
-
-    @Override
-    public void show(FragmentManager aManager, String aTag) {
-        super.show(aManager, aTag);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater aInflater, @Nullable ViewGroup aContainer,
@@ -86,31 +62,44 @@ public class AddFragment extends DialogFragment {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View aView) {
-                Fragment mainFragment = getFragmentManager().findFragmentById(R.id.mainFragment);
                 String name = mName.getText().toString();
                 String breed = mBreed.getText().toString();
                 String age = mAge.getText().toString();
-                if (mainFragment != null) {
-                    if (checkName(name) && checkBreed(breed) && checkAge(age)) {
-                        Intent intent = new Intent(getContext(), MainActivity.class);
-                        intent.putExtra(NAME_KEY, name);
-                        intent.putExtra(BREED_KEY, breed);
-                        intent.putExtra(AGE_KEY, age);
-                        if (getDialog() != null) {
-                            mainFragment.onActivityResult(MainFragment.ADD_ACT, Activity.RESULT_OK, intent);
+                if (checkName(name) && checkBreed(breed) && checkAge(age)) {
+                    try {
+                        mCallback = (SendDataToMainFragment) getActivity();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(NAME_KEY, name);
+                        bundle.putString(BREED_KEY, breed);
+                        bundle.putString(AGE_KEY, age);
+                        mCallback.sendTextFieldsContent(bundle);
+                        if (getTargetFragment() != null) {
                             dismiss();
                         } else {
-                            mainFragment.onActivityResult(MainFragment.ADD_ACT, Activity.RESULT_OK, intent);
                             mName.setText("");
                             mBreed.setText("");
                             mAge.setText("");
                         }
-
+                    } catch (ClassCastException e) {
+                        throw new ClassCastException(getActivity().toString()
+                                + " must implement SendDataToMainFragment");
                     }
                 }
             }
         });
         return root;
+    }
+
+    @Override
+    public void onDetach() {
+        mCallback = null;
+        super.onDetach();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.dismissAllowingStateLoss();
     }
 
     /**
@@ -162,5 +151,16 @@ public class AddFragment extends DialogFragment {
         } else {
             return true;
         }
+    }
+
+    /**
+     * Allow callback communication with MainFragment.
+     */
+    interface SendDataToMainFragment {
+        /**
+         * Send text field content to MainFragment.
+         * @param aBundle bundle with data for creating list element.
+         */
+        void sendTextFieldsContent(Bundle aBundle);
     }
 }

@@ -9,13 +9,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 /**
- *
+ * Custom actionbar that provide
  * Created by batrakov on 03.10.17.
  */
 
-public class CustomView extends LinearLayout {
+public class CustomActionBar extends LinearLayout {
 
-    private static final int ELEVATION = 20;
     private static final int MARGIN_PADDING = 40;
 
     private Drawable mFirstButtonDrawable;
@@ -23,7 +22,8 @@ public class CustomView extends LinearLayout {
     private Drawable mThirdButtonDrawable;
     private Drawable mBackgroundShape;
     private int mColor;
-    private Boolean mOrientationPortrait;
+    private int mButtonElevation;
+    private Boolean mVertical;
     private ImageButton mFirstButton;
     private ImageButton mSecondButton;
     private ImageButton mThirdButton;
@@ -31,18 +31,20 @@ public class CustomView extends LinearLayout {
     /**
      * Constructor.
      * @param aContext context
-     * @param aAttrs attributes from XML
+     * @param aAttrs   attributes from XML
      */
-    public CustomView(Context aContext, AttributeSet aAttrs) {
+    public CustomActionBar(Context aContext, AttributeSet aAttrs) {
         super(aContext, aAttrs);
-        TypedArray array = aContext.getTheme().obtainStyledAttributes(aAttrs, R.styleable.CustomView, 0, 0);
+        TypedArray array = aContext.getTheme().obtainStyledAttributes(aAttrs, R.styleable.CustomActionBar, 0, 0);
         try {
-            mFirstButtonDrawable = array.getDrawable(R.styleable.CustomView_firstButtonDrawable);
-            mSecondButtonDrawable = array.getDrawable(R.styleable.CustomView_secondButtonDrawable);
-            mThirdButtonDrawable = array.getDrawable(R.styleable.CustomView_thirdButtonDrawable);
-            mOrientationPortrait = array.getBoolean(R.styleable.CustomView_orientationPortrait, true);
-            mColor = array.getColor(R.styleable.CustomView_mainColor, ContextCompat.getColor(aContext, R.color.white));
-            mBackgroundShape = array.getDrawable(R.styleable.CustomView_backgroundShape);
+            mFirstButtonDrawable = array.getDrawable(R.styleable.CustomActionBar_firstButtonDrawable);
+            mSecondButtonDrawable = array.getDrawable(R.styleable.CustomActionBar_secondButtonDrawable);
+            mThirdButtonDrawable = array.getDrawable(R.styleable.CustomActionBar_thirdButtonDrawable);
+            mVertical = array.getBoolean(R.styleable.CustomActionBar_vertical, true);
+            mButtonElevation = array.getInteger(R.styleable.CustomActionBar_buttonsElevation, 0);
+            mColor = array.getColor(R.styleable.CustomActionBar_mainColor,
+                    ContextCompat.getColor(aContext, R.color.white));
+            mBackgroundShape = array.getDrawable(R.styleable.CustomActionBar_backgroundShape);
         } finally {
             array.recycle();
         }
@@ -69,11 +71,11 @@ public class CustomView extends LinearLayout {
         mSecondButton.setBackgroundColor(mColor);
         mThirdButton.setBackgroundColor(mColor);
 
-        mFirstButton.setElevation(ELEVATION);
-        mSecondButton.setElevation(ELEVATION);
-        mThirdButton.setElevation(ELEVATION);
+        mFirstButton.setElevation(mButtonElevation);
+        mSecondButton.setElevation(mButtonElevation);
+        mThirdButton.setElevation(mButtonElevation);
 
-        if (mOrientationPortrait) {
+        if (mVertical) {
             setOrientation(HORIZONTAL);
             LayoutParams firstParams =
                     new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
@@ -113,7 +115,7 @@ public class CustomView extends LinearLayout {
 
         setBackground(mBackgroundShape);
         setBackgroundColor(mColor);
-        setElevation(ELEVATION);
+        setElevation(mButtonElevation);
     }
 
     /**

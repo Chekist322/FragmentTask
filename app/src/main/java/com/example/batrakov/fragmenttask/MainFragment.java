@@ -13,29 +13,29 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /**
- *
+ * Fragment that represents data as a list, provide access to RegisterNewCatFragment
+ * also allow to start second application that displays current list as a grid.
  * Created by batrakov on 04.10.17.
  */
 
 public class MainFragment extends Fragment {
 
-    private static final String CAT_ARRAY = "cat array";
-    private static final String CAT_INDEX = "cat index";
-    private static final String CUSTOM_ACTION = "com.example.batrakov.fragmenttaskgrid.ACTION";
-    private static final String DIALOG_TAG = "dialog";
-
-    private static final int GRID_ACT = 0;
-
     /**
      * Request code for add fragment.
      */
     public static final int ADD_ACT = 1;
-
+    private static final String CAT_ARRAY = "cat array";
+    private static final String CAT_INDEX = "cat index";
+    private static final String CUSTOM_ACTION = "com.example.batrakov.fragmenttaskgrid.ACTION";
+    private static final String DIALOG_TAG = "dialog";
+    private static final int GRID_ACT = 0;
     private View mListHeader;
     private CatAdapter mListAdapter;
     private ArrayList<Cat> mListData;
@@ -51,34 +51,33 @@ public class MainFragment extends Fragment {
                              @Nullable Bundle aSavedInstanceState) {
         super.onCreate(aSavedInstanceState);
         View root = aInflater.inflate(R.layout.fragment_main, aContainer, false);
-        final CustomView customView = root.findViewById(R.id.customView);
+        final CustomActionBar customActionBar = root.findViewById(R.id.customView);
         RecyclerView listView = root.findViewById(R.id.list);
         mListHeader = root.findViewById(R.id.listHeader);
 
         if (aSavedInstanceState == null) {
             mListData = new ArrayList<>();
-            //Test cat samples
-            mListData.add(new Cat("Вася", "Британец", "4"));
-            mListData.add(new Cat("Маха", "Персидская", "2"));
-            mListData.add(new Cat("Мурзик", "Русская голубая", "9"));
         }
 
         if (mListData != null) {
             mListAdapter = new CatAdapter(mListData);
+            final LayoutAnimationController controller =
+                    AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_animation_fall_down);
+
+            listView.setLayoutAnimation(controller);
             listView.setLayoutManager(new LinearLayoutManager(root.getContext()));
             listView.setAdapter(mListAdapter);
             mListAdapter.replaceData(mListData);
+            listView.scheduleLayoutAnimation();
         }
 
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            customView.setThirdButtonVisibility(View.GONE);
+            customActionBar.setThirdButtonVisibility(View.GONE);
         } else {
-            customView.setThirdButtonVisibility(View.VISIBLE);
+            customActionBar.setThirdButtonVisibility(View.VISIBLE);
         }
 
-
-
-        customView.setFirstButtonOnClickListener(new View.OnClickListener() {
+        customActionBar.setFirstButtonOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View aView) {
                 ArrayList<String> stringArrayList = new ArrayList<>();
@@ -91,12 +90,12 @@ public class MainFragment extends Fragment {
                 }
                 intent.putStringArrayListExtra(CAT_ARRAY, stringArrayList);
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    getActivity().startActivityForResult(intent, GRID_ACT);
+                    startActivityForResult(intent, GRID_ACT);
                 }
             }
         });
 
-        customView.setSecondButtonOnClickListener(new View.OnClickListener() {
+        customActionBar.setSecondButtonOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View aView) {
                 ArrayList<String> stringArrayList = new ArrayList<>();
@@ -114,20 +113,19 @@ public class MainFragment extends Fragment {
             }
         });
 
-        customView.setThirdButtonOnClickListener(new View.OnClickListener() {
+        customActionBar.setThirdButtonOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View aView) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.addToBackStack(null);
 
-                AddFragment addFragment = new AddFragment();
-                addFragment.setTargetFragment(getCurrentFragment(), ADD_ACT);
-                addFragment.show(ft, DIALOG_TAG);
+                RegisterNewCatFragment registerNewCatFragment = new RegisterNewCatFragment();
+                registerNewCatFragment.setTargetFragment(getCurrentFragment(), ADD_ACT);
+                registerNewCatFragment.show(ft, DIALOG_TAG);
             }
         });
         return root;
     }
-
 
     @Override
     public void onActivityResult(int aRequestCode, int aResultCode, Intent aData) {
@@ -141,19 +139,23 @@ public class MainFragment extends Fragment {
                 view.setBackgroundColor(getActivity().getColor(R.color.colorPrimary));
                 snackbar.show();
             }
-        } else {
-            if (aResultCode == Activity.RESULT_OK) {
-                Cat cat = new Cat(aData.getStringExtra(AddFragment.NAME_KEY),
-                        aData.getStringExtra(AddFragment.BREED_KEY),
-                        aData.getStringExtra(AddFragment.AGE_KEY));
-                mListData.add(cat);
-                mListAdapter.replaceData(mListData);
-            }
         }
     }
 
     /**
-     *
+     * Add new cat to mListData.
+     * @param aBundle incoming bundle that contains cat parameters.
+     */
+    public void addCat(Bundle aBundle) {
+        Cat cat = new Cat(aBundle.getString(RegisterNewCatFragment.NAME_KEY),
+                aBundle.getString(RegisterNewCatFragment.BREED_KEY),
+                aBundle.getString(RegisterNewCatFragment.AGE_KEY));
+        mListData.add(cat);
+        mListAdapter.replaceData(mListData);
+    }
+
+    /**
+     * Get current fragment reference.
      * @return current fragment reference.
      */
     private Fragment getCurrentFragment() {
@@ -203,6 +205,7 @@ public class MainFragment extends Fragment {
          * @param aList target list for fill.
          */
         CatAdapter(ArrayList<Cat> aList) {
+            setHasStableIds(true);
             mList = aList;
         }
 
@@ -235,8 +238,8 @@ public class MainFragment extends Fragment {
         }
 
         @Override
-        public long getItemId(int aIndex) {
-            return aIndex;
+        public long getItemId(int aPosition) {
+            return aPosition;
         }
 
         @Override
