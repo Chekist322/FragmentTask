@@ -44,31 +44,16 @@ class Cat implements Serializable {
      *
      * @return breed
      */
-    public String getBreed() {
+    String getBreed() {
         return mBreed;
-    }
-
-    /**
-     *
-     * @param aBreed breed
-     */
-    public void setBreed(String aBreed) {
-        this.mBreed = aBreed;
     }
 
     /**
      *
      * @return age
      */
-    public String getAge() {
+    String getAge() {
         return mAge;
     }
 
-    /**
-     *
-     * @param aAge age
-     */
-    public void setAge(String aAge) {
-        this.mAge = aAge;
-    }
 }

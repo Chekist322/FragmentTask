@@ -57,6 +57,10 @@ public class MainFragment extends Fragment {
 
         if (aSavedInstanceState == null) {
             mListData = new ArrayList<>();
+            //Test cat samples
+            mListData.add(new Cat("Вася", "Британец", "4"));
+            mListData.add(new Cat("Маха", "Персидская", "2"));
+            mListData.add(new Cat("Мурзик", "Русская голубая", "9"));
         }
 
         if (mListData != null) {
