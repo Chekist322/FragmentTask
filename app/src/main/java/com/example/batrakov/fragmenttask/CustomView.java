@@ -117,7 +117,7 @@ public class CustomView extends LinearLayout {
     }
 
     /**
-     *
+     * Set first button OnClick listener.
      * @param aOnClickListener listener for the first button
      */
     public void setFirstButtonOnClickListener(OnClickListener aOnClickListener) {
@@ -125,7 +125,7 @@ public class CustomView extends LinearLayout {
     }
 
     /**
-     *
+     * Set second button OnClick listener.
      * @param aOnClickListener listener for the second button
      */
     public void setSecondButtonOnClickListener(OnClickListener aOnClickListener) {
@@ -133,14 +133,18 @@ public class CustomView extends LinearLayout {
     }
 
     /**
-     *
+     * Set third button OnClick listener.
      * @param aOnClickListener listener for the third button
      */
     public void setThirdButtonOnClickListener(OnClickListener aOnClickListener) {
         mThirdButton.setOnClickListener(aOnClickListener);
     }
 
-    public void setThirdButtonVisibility(int aVisibility){
+    /**
+     * Set third button visibility.
+     * @param aVisibility Required third button visibility state
+     */
+    public void setThirdButtonVisibility(int aVisibility) {
         mThirdButton.setVisibility(aVisibility);
     }
 }
