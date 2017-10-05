@@ -34,7 +34,6 @@
                 custom:backgroundShape="@drawable/rect_color"
                 custom:firstButtonDrawable="@drawable/intent_button_1"
                 custom:mainColor="@color/colorPrimary"
-                custom:vertical="true"
                 custom:secondButtonDrawable="@drawable/intent_button_2"
                 custom:thirdButtonDrawable="@drawable/add_button">
 

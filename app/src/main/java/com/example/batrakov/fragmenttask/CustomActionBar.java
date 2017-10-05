@@ -19,16 +19,15 @@ public class CustomActionBar extends LinearLayout {
 
     private static final int MARGIN_PADDING = 40;
 
-    private Drawable mFirstButtonDrawable;
-    private Drawable mSecondButtonDrawable;
-    private Drawable mThirdButtonDrawable;
+    private Drawable mFirstIntentCallDrawable;
+    private Drawable mSecondIntentCallDrawable;
+    private Drawable mRegisterCallDrawable;
     private Drawable mBackgroundShape;
     private int mColor;
     private int mButtonElevation;
-    private Boolean mVertical;
-    private ImageButton mFirstButton;
-    private ImageButton mSecondButton;
-    private ImageButton mThirdButton;
+    private ImageButton mFirstIntentCall;
+    private ImageButton mSecondIntentCall;
+    private ImageButton mRegisterCall;
 
     /**
      * Constructor.
@@ -39,10 +38,9 @@ public class CustomActionBar extends LinearLayout {
         super(aContext, aAttrs);
         TypedArray array = aContext.getTheme().obtainStyledAttributes(aAttrs, R.styleable.CustomActionBar, 0, 0);
         try {
-            mFirstButtonDrawable = array.getDrawable(R.styleable.CustomActionBar_firstButtonDrawable);
-            mSecondButtonDrawable = array.getDrawable(R.styleable.CustomActionBar_secondButtonDrawable);
-            mThirdButtonDrawable = array.getDrawable(R.styleable.CustomActionBar_thirdButtonDrawable);
-            mVertical = array.getBoolean(R.styleable.CustomActionBar_vertical, true);
+            mFirstIntentCallDrawable = array.getDrawable(R.styleable.CustomActionBar_firstButtonDrawable);
+            mSecondIntentCallDrawable = array.getDrawable(R.styleable.CustomActionBar_secondButtonDrawable);
+            mRegisterCallDrawable = array.getDrawable(R.styleable.CustomActionBar_thirdButtonDrawable);
             mButtonElevation = array.getInteger(R.styleable.CustomActionBar_buttonsElevation, 0);
             mColor = array.getColor(R.styleable.CustomActionBar_mainColor,
                     ContextCompat.getColor(aContext, R.color.white));
@@ -57,63 +55,52 @@ public class CustomActionBar extends LinearLayout {
      * Visual initialization.
      */
     private void init() {
-        mFirstButton = new ImageButton(getContext());
-        mSecondButton = new ImageButton(getContext());
-        mThirdButton = new ImageButton(getContext());
+        mFirstIntentCall = new ImageButton(getContext());
+        mSecondIntentCall = new ImageButton(getContext());
+        mRegisterCall = new ImageButton(getContext());
 
-        mFirstButton.setImageDrawable(mFirstButtonDrawable);
-        mSecondButton.setImageDrawable(mSecondButtonDrawable);
-        mThirdButton.setImageDrawable(mThirdButtonDrawable);
+        mFirstIntentCall.setImageDrawable(mFirstIntentCallDrawable);
+        mSecondIntentCall.setImageDrawable(mSecondIntentCallDrawable);
+        mRegisterCall.setImageDrawable(mRegisterCallDrawable);
 
-        mFirstButton.setBackground(mBackgroundShape);
-        mSecondButton.setBackground(mBackgroundShape);
-        mThirdButton.setBackground(mBackgroundShape);
+        mFirstIntentCall.setBackground(mBackgroundShape);
+        mSecondIntentCall.setBackground(mBackgroundShape);
+        mRegisterCall.setBackground(mBackgroundShape);
 
-        mFirstButton.setBackgroundColor(mColor);
-        mSecondButton.setBackgroundColor(mColor);
-        mThirdButton.setBackgroundColor(mColor);
+        mFirstIntentCall.setBackgroundColor(mColor);
+        mSecondIntentCall.setBackgroundColor(mColor);
+        mRegisterCall.setBackgroundColor(mColor);
 
-        mFirstButton.setElevation(mButtonElevation);
-        mSecondButton.setElevation(mButtonElevation);
-        mThirdButton.setElevation(mButtonElevation);
+        mFirstIntentCall.setElevation(mButtonElevation);
+        mSecondIntentCall.setElevation(mButtonElevation);
+        mRegisterCall.setElevation(mButtonElevation);
 
-        if (mVertical) {
-            setOrientation(HORIZONTAL);
-            LayoutParams firstParams =
-                    new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-            firstParams.weight = 1;
-            firstParams.setMarginStart(MARGIN_PADDING);
-            firstParams.setMarginEnd(0);
+        setOrientation(HORIZONTAL);
+        LayoutParams firstParams =
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+        firstParams.weight = 1;
+        firstParams.setMarginStart(MARGIN_PADDING);
+        firstParams.setMarginEnd(0);
 
-            LayoutParams secondParams =
-                    new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-            secondParams.weight = 1;
-            secondParams.setMarginStart(MARGIN_PADDING);
-            secondParams.setMarginEnd(MARGIN_PADDING);
+        LayoutParams secondParams =
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+        secondParams.weight = 1;
+        secondParams.setMarginStart(MARGIN_PADDING);
+        secondParams.setMarginEnd(MARGIN_PADDING);
 
-            LayoutParams thirdParams =
-                    new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-            thirdParams.weight = 1;
-            thirdParams.setMarginStart(0);
-            thirdParams.setMarginEnd(MARGIN_PADDING);
+        LayoutParams thirdParams =
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+        thirdParams.weight = 1;
+        thirdParams.setMarginStart(0);
+        thirdParams.setMarginEnd(MARGIN_PADDING);
 
-            mFirstButton.setLayoutParams(firstParams);
-            mSecondButton.setLayoutParams(secondParams);
-            mThirdButton.setLayoutParams(thirdParams);
-        } else {
-            setOrientation(VERTICAL);
-            LayoutParams params =
-                    new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.weight = 1;
-            params.setMargins(0, MARGIN_PADDING, 0, MARGIN_PADDING);
-
-            mFirstButton.setLayoutParams(params);
-            mSecondButton.setLayoutParams(params);
-            mThirdButton.setLayoutParams(params);
-        }
-        addView(mFirstButton);
-        addView(mSecondButton);
-        addView(mThirdButton);
+        mFirstIntentCall.setLayoutParams(firstParams);
+        mSecondIntentCall.setLayoutParams(secondParams);
+        mRegisterCall.setLayoutParams(thirdParams);
+        mRegisterCall.setVisibility(VISIBLE);
+        addView(mFirstIntentCall);
+        addView(mSecondIntentCall);
+        addView(mRegisterCall);
 
         setBackground(mBackgroundShape);
         setBackgroundColor(mColor);
@@ -124,31 +111,37 @@ public class CustomActionBar extends LinearLayout {
      * Set first button OnClick listener.
      * @param aOnClickListener listener for the first button
      */
-    public void setFirstButtonOnClickListener(@NonNull OnClickListener aOnClickListener) {
-        mFirstButton.setOnClickListener(aOnClickListener);
+    public void setFirstIntentCallAction(@NonNull OnClickListener aOnClickListener) {
+        mFirstIntentCall.setOnClickListener(aOnClickListener);
     }
 
     /**
      * Set second button OnClick listener.
      * @param aOnClickListener listener for the second button
      */
-    public void setSecondButtonOnClickListener(@NonNull OnClickListener aOnClickListener) {
-        mSecondButton.setOnClickListener(aOnClickListener);
+    public void setSecondIntentCallAction(@NonNull OnClickListener aOnClickListener) {
+        mSecondIntentCall.setOnClickListener(aOnClickListener);
     }
 
     /**
      * Set third button OnClick listener.
      * @param aOnClickListener listener for the third button
      */
-    public void setThirdButtonOnClickListener(@NonNull OnClickListener aOnClickListener) {
-        mThirdButton.setOnClickListener(aOnClickListener);
+    public void setRegisterCallAction(@NonNull OnClickListener aOnClickListener) {
+        mRegisterCall.setOnClickListener(aOnClickListener);
     }
 
     /**
-     * Set third button visibility.
-     * @param aVisibility Required third button visibility state
+     * Hide third button visibility.
      */
-    public void setThirdButtonVisibility(int aVisibility) {
-        mThirdButton.setVisibility(aVisibility);
+    public void hideRegisterCallButtonVisibility() {
+        mRegisterCall.setVisibility(GONE);
+    }
+
+    /**
+     * Show third button visibility.
+     */
+    public void showRegisterCallButtonVisibility() {
+        mRegisterCall.setVisibility(VISIBLE);
     }
 }

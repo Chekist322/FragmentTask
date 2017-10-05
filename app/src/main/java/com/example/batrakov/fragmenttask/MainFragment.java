@@ -80,12 +80,12 @@ public class MainFragment extends Fragment {
         }
 
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            customActionBar.setThirdButtonVisibility(View.GONE);
+            customActionBar.hideRegisterCallButtonVisibility();
         } else {
-            customActionBar.setThirdButtonVisibility(View.VISIBLE);
+            customActionBar.showRegisterCallButtonVisibility();
         }
 
-        customActionBar.setFirstButtonOnClickListener(new View.OnClickListener() {
+        customActionBar.setFirstIntentCallAction(new View.OnClickListener() {
             @Override
             public void onClick(View aView) {
                 ArrayList<String> stringArrayList = new ArrayList<>();
@@ -103,7 +103,7 @@ public class MainFragment extends Fragment {
             }
         });
 
-        customActionBar.setSecondButtonOnClickListener(new View.OnClickListener() {
+        customActionBar.setSecondIntentCallAction(new View.OnClickListener() {
             @Override
             public void onClick(View aView) {
                 ArrayList<String> stringArrayList = new ArrayList<>();
@@ -121,7 +121,7 @@ public class MainFragment extends Fragment {
             }
         });
 
-        customActionBar.setThirdButtonOnClickListener(new View.OnClickListener() {
+        customActionBar.setRegisterCallAction(new View.OnClickListener() {
             @Override
             public void onClick(View aView) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
