@@ -13,12 +13,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /**
+ *
  * Created by batrakov on 04.10.17.
  */
 
@@ -30,17 +30,14 @@ public class MainFragment extends Fragment {
     private static final String DIALOG_TAG = "dialog";
 
     private static final int GRID_ACT = 0;
-    private static final String TAG = "MainFragment";
 
     /**
      * Request code for add fragment.
      */
     public static final int ADD_ACT = 1;
 
-    private RecyclerView mListView;
     private View mListHeader;
     private CatAdapter mListAdapter;
-    private ProgressBar mProgressBar;
     private ArrayList<Cat> mListData;
 
     @Override
@@ -55,8 +52,7 @@ public class MainFragment extends Fragment {
         super.onCreate(aSavedInstanceState);
         View root = aInflater.inflate(R.layout.fragment_main, aContainer, false);
         final CustomView customView = root.findViewById(R.id.customView);
-        mProgressBar = root.findViewById(R.id.progressBar);
-        mListView = root.findViewById(R.id.list);
+        RecyclerView listView = root.findViewById(R.id.list);
         mListHeader = root.findViewById(R.id.listHeader);
 
         if (aSavedInstanceState == null) {
@@ -65,8 +61,8 @@ public class MainFragment extends Fragment {
 
         if (mListData != null) {
             mListAdapter = new CatAdapter(mListData);
-            mListView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-            mListView.setAdapter(mListAdapter);
+            listView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+            listView.setAdapter(mListAdapter);
             mListAdapter.replaceData(mListData);
         }
 
@@ -117,8 +113,6 @@ public class MainFragment extends Fragment {
         customView.setThirdButtonOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View aView) {
-                mProgressBar.setVisibility(View.VISIBLE);
-                mListView.setVisibility(View.INVISIBLE);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.addToBackStack(null);
 
@@ -150,8 +144,6 @@ public class MainFragment extends Fragment {
                         aData.getStringExtra(AddFragment.AGE_KEY));
                 mListData.add(cat);
                 mListAdapter.replaceData(mListData);
-                mProgressBar.setVisibility(View.INVISIBLE);
-                mListView.setVisibility(View.VISIBLE);
             }
         }
     }

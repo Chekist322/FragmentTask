@@ -25,6 +25,11 @@ import android.widget.EditText;
 
 public class AddFragment extends DialogFragment {
 
+    @Override
+    public void onCreate(@Nullable Bundle aSavedInstanceState) {
+        super.onCreate(aSavedInstanceState);
+        setRetainInstance(true);
+    }
 
     /**
      * Intent key for name.
