@@ -13,4 +13,5 @@
     <color name="secondaryDarkColor">#000051</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
+    <color name="textHintColor">#3a000000</color>
 </resources>

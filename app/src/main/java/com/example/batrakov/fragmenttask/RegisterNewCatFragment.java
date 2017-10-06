@@ -1,5 +1,6 @@
 package com.example.batrakov.fragmenttask;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -40,9 +41,17 @@ public class RegisterNewCatFragment extends DialogFragment {
     private EditText mAge;
     private View mView;
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle aSavedInstanceState) {
+        setStyle(STYLE_NO_FRAME, R.style.MyCustomTheme);
+        return super.onCreateDialog(aSavedInstanceState);
+    }
+
     @Override
     public View onCreateView(LayoutInflater aInflater, @Nullable ViewGroup aContainer,
                              @Nullable Bundle aSavedInstanceState) {
+
         View root = aInflater.inflate(R.layout.fragment_add, aContainer, false);
         mView = root.findViewById(R.id.layoutForSnackbar);
         mName = root.findViewById(R.id.nameField);

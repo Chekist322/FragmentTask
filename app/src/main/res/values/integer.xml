@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="anim_duration_medium">1000</integer>
+    <integer name="anim_duration_short">500</integer>
+    <integer name="anim_duration_shortest">300</integer>
+    <integer name="offset_duration">200</integer>
 </resources>
