@@ -132,14 +132,14 @@ public class CustomActionBar extends LinearLayout {
     }
 
     /**
-     * Hide third button visibility.
+     * Hide registerCall button.
      */
     public void hideRegisterCallButtonVisibility() {
         mRegisterCall.setVisibility(GONE);
     }
 
     /**
-     * Show third button visibility.
+     * Show registerCall button.
      */
     public void showRegisterCallButtonVisibility() {
         mRegisterCall.setVisibility(VISIBLE);

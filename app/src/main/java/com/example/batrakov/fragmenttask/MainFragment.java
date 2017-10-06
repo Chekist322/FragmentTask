@@ -126,9 +126,7 @@ public class MainFragment extends Fragment {
             public void onClick(View aView) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.addToBackStack(null);
-
                 RegisterNewCatFragment registerNewCatFragment = new RegisterNewCatFragment();
-
                 registerNewCatFragment.setTargetFragment(getCurrentFragment(), ADD_ACT);
                 registerNewCatFragment.show(ft, DIALOG_TAG);
             }
