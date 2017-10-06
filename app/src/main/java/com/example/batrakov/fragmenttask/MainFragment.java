@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
@@ -138,7 +137,7 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int aRequestCode, int aResultCode,@NonNull Intent aData) {
+    public void onActivityResult(int aRequestCode, int aResultCode, @NonNull Intent aData) {
         super.onActivityResult(aRequestCode, aResultCode, aData);
         if (aRequestCode == GRID_ACT) {
             if (aResultCode == Activity.RESULT_OK) {

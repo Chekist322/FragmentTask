@@ -34,7 +34,7 @@ public class CustomActionBar extends LinearLayout {
      * @param aContext context
      * @param aAttrs   attributes from XML
      */
-    public CustomActionBar(Context aContext,@Nullable AttributeSet aAttrs) {
+    public CustomActionBar(Context aContext, @Nullable AttributeSet aAttrs) {
         super(aContext, aAttrs);
         TypedArray array = aContext.getTheme().obtainStyledAttributes(aAttrs, R.styleable.CustomActionBar, 0, 0);
         try {
