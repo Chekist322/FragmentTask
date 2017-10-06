@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentActivity;
 
 /**
  * Main app activity.
- * Container and provider for MainActivity and RegisterNewCatFragment.
+ * Container and provider for MainFragment and RegisterNewCatFragment.
  */
 public class MainActivity extends FragmentActivity implements RegisterNewCatFragment.SendDataToMainFragment {
 

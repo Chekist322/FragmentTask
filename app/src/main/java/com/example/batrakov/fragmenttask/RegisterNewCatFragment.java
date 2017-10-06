@@ -41,6 +41,18 @@ public class RegisterNewCatFragment extends DialogFragment {
     private EditText mAge;
     private View mView;
 
+
+    /**
+     * Allow callback communication with MainFragment.
+     */
+    interface SendDataToMainFragment {
+        /**
+         * Send text field content.
+         * @param aBundle bundle with data for creating list element.
+         */
+        void sendTextFieldsContent(@NonNull Bundle aBundle);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle aSavedInstanceState) {
@@ -165,16 +177,5 @@ public class RegisterNewCatFragment extends DialogFragment {
         } else {
             return true;
         }
-    }
-
-    /**
-     * Allow callback communication with MainFragment.
-     */
-    interface SendDataToMainFragment {
-        /**
-         * Send text field content.
-         * @param aBundle bundle with data for creating list element.
-         */
-        void sendTextFieldsContent(@NonNull Bundle aBundle);
     }
 }
