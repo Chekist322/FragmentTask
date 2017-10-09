@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.batrakov.fragmenttask.MainFragment"
+    <FrameLayout
+        android:id="@+id/listFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
+    </FrameLayout>
 </android.support.v7.widget.ContentFrameLayout>

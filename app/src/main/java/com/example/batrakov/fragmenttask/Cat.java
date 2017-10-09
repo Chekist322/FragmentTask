@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Class represents single cat.
  * Created by batrakov on 28.09.17.
  */
-class Cat implements Serializable {
+public class Cat implements Serializable {
     private String mName;
     private String mBreed;
     private String mAge;
@@ -19,7 +19,7 @@ class Cat implements Serializable {
      * @param aBreed cat's breed
      * @param aAge   cat's age
      */
-    Cat(String aName, String aBreed, String aAge) {
+    public Cat(String aName, String aBreed, String aAge) {
         mName = aName;
         mBreed = aBreed;
         mAge = aAge;
@@ -46,7 +46,7 @@ class Cat implements Serializable {
      * Allow to get cat breed.
      * @return breed
      */
-    String getBreed() {
+     public String getBreed() {
         return mBreed;
     }
 
@@ -54,7 +54,7 @@ class Cat implements Serializable {
      * Allow to get cat age.
      * @return age
      */
-    String getAge() {
+    public String getAge() {
         return mAge;
     }
 
