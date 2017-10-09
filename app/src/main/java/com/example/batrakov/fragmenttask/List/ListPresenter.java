@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 
 import com.example.batrakov.fragmenttask.Cat;
@@ -29,14 +30,16 @@ public class ListPresenter implements ListContract.Presenter {
     private static final String CUSTOM_ACTION = "com.example.batrakov.fragmenttaskgrid.ACTION";
     private static final String DIALOG_TAG = "dialog";
     private static final int GRID_ACT = 0;
+    private static final String TAG = "ListPresenter";
     DataAccess mData;
     ListContract.View mListView;
 
     public ListPresenter(ListContract.View aListView) {
-        System.out.println("OnCreateListPresenter");
+        Log.i(TAG, "ListPresenter: Constructor ");
         mListView = aListView;
         mListView.setPresenter(this);
-        System.out.println(mListView);
+        Log.i(TAG, "ListPresenter: mListView " + String.valueOf(mListView));
+ //       Log.i(TAG, "ListPresenter: this " + String.valueOf(this));
     }
 
 
@@ -79,12 +82,11 @@ public class ListPresenter implements ListContract.Presenter {
 
     @Override
     public void startRegisterNewCatDialog(FragmentTransaction aFragmentTransaction) {
-        FragmentTransaction ft = aFragmentTransaction;
-        ft.addToBackStack(null);
+        aFragmentTransaction.addToBackStack(null);
         RegisterNewCatFragment registerNewCatFragment = new RegisterNewCatFragment();
         registerNewCatFragment.setTargetFragment(mListView.getCurrentFragment(), ADD_ACT);
         registerNewCatFragment.setPresenter(new RegisterNewCatPresenter(registerNewCatFragment));
-        registerNewCatFragment.show(ft, DIALOG_TAG);
+        registerNewCatFragment.show(aFragmentTransaction, DIALOG_TAG);
     }
 
     @Override

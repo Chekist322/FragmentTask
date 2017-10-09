@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 
 public class DataFragment extends Fragment implements DataAccess {
+
     ArrayList<Cat> mDataList;
 
     public DataFragment(){

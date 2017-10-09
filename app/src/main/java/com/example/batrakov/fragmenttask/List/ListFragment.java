@@ -1,6 +1,5 @@
 package com.example.batrakov.fragmenttask.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -9,9 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +20,7 @@ import android.widget.TextView;
 
 import com.example.batrakov.fragmenttask.Cat;
 import com.example.batrakov.fragmenttask.CustomActionBar;
-import com.example.batrakov.fragmenttask.MainActivity;
 import com.example.batrakov.fragmenttask.R;
-import com.example.batrakov.fragmenttask.RegisterNewCat.RegisterNewCatFragment;
 
 import java.util.ArrayList;
 
@@ -35,34 +32,40 @@ import java.util.ArrayList;
 
 public class ListFragment extends Fragment implements ListContract.View {
 
+    private static final String TAG = "ListFragment";
     /**
      * Request code for add fragment.
      */
 
     private View mListHeader;
-    private CatAdapter mListAdapter;
 
     private ListContract.Presenter mPresenter;
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater aInflater, @Nullable ViewGroup aContainer,
                              @Nullable Bundle aSavedInstanceState) {
-        System.out.println(this);
-        System.out.println("OnCreateListFrag");
         super.onCreate(aSavedInstanceState);
         View root = aInflater.inflate(R.layout.fragment_main, aContainer, false);
         final CustomActionBar customActionBar = root.findViewById(R.id.customView);
         RecyclerView listView = root.findViewById(R.id.list);
         mListHeader = root.findViewById(R.id.listHeader);
-
-        mListAdapter = new CatAdapter(mPresenter.readFromData());
+        CatAdapter listAdapter = new CatAdapter(mPresenter.readFromData());
         final LayoutAnimationController controller =
                 AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_animation_fall_down);
         listView.setLayoutAnimation(controller);
         listView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        listView.setAdapter(mListAdapter);
-        mListAdapter.replaceData(mPresenter.readFromData());
+        listView.setAdapter(listAdapter);
+        listAdapter.replaceData(mPresenter.readFromData());
         listView.scheduleLayoutAnimation();
 
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -88,7 +91,7 @@ public class ListFragment extends Fragment implements ListContract.View {
         customActionBar.setRegisterCallAction(new View.OnClickListener() {
             @Override
             public void onClick(View aView) {
-          mPresenter.startRegisterNewCatDialog(getFragmentManager().beginTransaction());
+                mPresenter.startRegisterNewCatDialog(getFragmentManager().beginTransaction());
             }
         });
         return root;
@@ -118,14 +121,19 @@ public class ListFragment extends Fragment implements ListContract.View {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public FragmentManager getSupportFragmentManager() {
         return getSupportFragmentManager();
     }
 
     @Override
     public void setPresenter(ListContract.Presenter aPresenter) {
-        System.out.println("OnSetPresenter");
         mPresenter = aPresenter;
+        Log.i(TAG, "setPresenter: this " + String.valueOf(this));
     }
 
     /**
