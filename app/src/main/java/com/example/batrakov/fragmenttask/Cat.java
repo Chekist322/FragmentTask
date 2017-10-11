@@ -1,7 +1,5 @@
 package com.example.batrakov.fragmenttask;
 
-import android.support.annotation.NonNull;
-
 import java.io.Serializable;
 
 /**

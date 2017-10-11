@@ -76,12 +76,13 @@ public class RegisterNewCatFragment extends DialogFragment implements RegisterNe
     @Override
     public void onPause() {
         super.onPause();
-        this.dismissAllowingStateLoss();
+        if (getTargetFragment() != null) {
+            this.dismiss();
+        }
     }
 
     @Override
     public void setPresenter(RegisterNewCatContract.Presenter aPresenter) {
-
         mPresenter = (RegisterNewCatPresenter) aPresenter;
     }
 
@@ -107,5 +108,12 @@ public class RegisterNewCatFragment extends DialogFragment implements RegisterNe
         View view = snackbar.getView();
         view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
         snackbar.show();
+    }
+
+    @Override
+    public void clearFields() {
+        mName.setText("");
+        mBreed.setText("");
+        mAge.setText("");
     }
 }

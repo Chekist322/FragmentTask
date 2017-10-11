@@ -2,44 +2,39 @@ package com.example.batrakov.fragmenttask.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.View;
 
 import com.example.batrakov.fragmenttask.Cat;
 import com.example.batrakov.fragmenttask.Data.DataAccess;
-import com.example.batrakov.fragmenttask.Data.DataFragment;
-import com.example.batrakov.fragmenttask.R;
 import com.example.batrakov.fragmenttask.RegisterNewCat.RegisterNewCatFragment;
 import com.example.batrakov.fragmenttask.RegisterNewCat.RegisterNewCatPresenter;
 
 import java.util.ArrayList;
 
 /**
+ * Presenter for {@link ListFragment}.
  * Created by batrakov on 06.10.17.
  */
 
 public class ListPresenter implements ListContract.Presenter {
 
-    public static final int ADD_ACT = 1;
+    private static final int ADD_ACT = 1;
     private static final String CAT_ARRAY = "cat array";
     private static final String CAT_INDEX = "cat index";
     private static final String CUSTOM_ACTION = "com.example.batrakov.fragmenttaskgrid.ACTION";
     private static final String DIALOG_TAG = "dialog";
     private static final int GRID_ACT = 0;
-    private static final String TAG = "ListPresenter";
-    DataAccess mData;
-    ListContract.View mListView;
+    private DataAccess mData;
+    private ListContract.View mListView;
 
+    /**
+     * Constructor.
+     * @param aListView current {@link ListFragment}
+     */
     public ListPresenter(ListContract.View aListView) {
-        Log.i(TAG, "ListPresenter: Constructor ");
         mListView = aListView;
         mListView.setPresenter(this);
-        Log.i(TAG, "ListPresenter: mListView " + String.valueOf(mListView));
- //       Log.i(TAG, "ListPresenter: this " + String.valueOf(this));
     }
 
 
@@ -105,12 +100,7 @@ public class ListPresenter implements ListContract.Presenter {
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
-    public android.support.v4.app.FragmentManager getFragmentManager() {
-        return mListView.getCurrentFragment().getFragmentManager();
+    public void updateListView() {
+        mListView.updateListView();
     }
 }

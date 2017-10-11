@@ -3,40 +3,43 @@ package com.example.batrakov.fragmenttask.Data;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.example.batrakov.fragmenttask.Cat;
 
 import java.util.ArrayList;
 
 /**
- * Created by batrakov on 06.10.17.
+ * Database fragment contain cat database and keep his retain instance.
  */
 
 public class DataFragment extends Fragment implements DataAccess {
 
-    ArrayList<Cat> mDataList;
+    private static final String TAG = "DataFragment";
+    private ArrayList<Cat> mDataList;
 
-    public DataFragment(){
+    /**
+     * Constructor.
+     */
+    public DataFragment() {
+        Log.i(TAG, "DataFragment: Constructor");
         mDataList = new ArrayList<>();
     }
 
-    DataFragment(ArrayList<Cat> aCats){
-        mDataList = aCats;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle aSavedInstanceState) {
         super.onCreate(aSavedInstanceState);
         setRetainInstance(true);
-        System.out.println("OnCreateData");
+        Log.i(TAG, "onCreate: Database");
     }
 
-    public void addCatToBase(Cat aCat){
+    /**
+     * Add cat to database.
+     * @param aCat target cat item.
+     */
+    public void addCatToBase(Cat aCat) {
         mDataList.add(aCat);
-    }
-
-    public ArrayList<Cat> getDataList(){
-        return mDataList;
     }
 
     @Override

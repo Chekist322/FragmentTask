@@ -39,16 +39,19 @@ public class ListFragment extends Fragment implements ListContract.View {
 
     private View mListHeader;
 
+    private RecyclerView mListView;
+
     private ListContract.Presenter mPresenter;
 
+    private CatAdapter mListAdapter;
+
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public void onSaveInstanceState(Bundle aOutState) {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(@Nullable Bundle aSavedInstanceState) {
+        super.onCreate(aSavedInstanceState);
     }
 
     @Override
@@ -57,16 +60,16 @@ public class ListFragment extends Fragment implements ListContract.View {
         super.onCreate(aSavedInstanceState);
         View root = aInflater.inflate(R.layout.fragment_main, aContainer, false);
         final CustomActionBar customActionBar = root.findViewById(R.id.customView);
-        RecyclerView listView = root.findViewById(R.id.list);
+        mListView = root.findViewById(R.id.list);
         mListHeader = root.findViewById(R.id.listHeader);
-        CatAdapter listAdapter = new CatAdapter(mPresenter.readFromData());
+        mListAdapter = new CatAdapter(mPresenter.readFromData());
         final LayoutAnimationController controller =
                 AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_animation_fall_down);
-        listView.setLayoutAnimation(controller);
-        listView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        listView.setAdapter(listAdapter);
-        listAdapter.replaceData(mPresenter.readFromData());
-        listView.scheduleLayoutAnimation();
+        mListView.setLayoutAnimation(controller);
+        mListView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        mListView.setAdapter(mListAdapter);
+        updateListView();
+        mListView.scheduleLayoutAnimation();
 
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             customActionBar.hideRegisterCallButtonVisibility();
@@ -99,8 +102,8 @@ public class ListFragment extends Fragment implements ListContract.View {
 
     @Override
     public void onActivityResult(int aRequestCode, int aResultCode, @NonNull Intent aData) {
+        mPresenter.checkActivityResult(aRequestCode, aResultCode, aData);
         super.onActivityResult(aRequestCode, aResultCode, aData);
-
     }
 
     /**
@@ -128,6 +131,11 @@ public class ListFragment extends Fragment implements ListContract.View {
     @Override
     public FragmentManager getSupportFragmentManager() {
         return getSupportFragmentManager();
+    }
+
+    @Override
+    public void updateListView() {
+        mListAdapter.replaceData(mPresenter.readFromData());
     }
 
     @Override
